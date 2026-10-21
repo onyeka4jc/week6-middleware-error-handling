@@ -17,11 +17,24 @@ const updateTodoSchema = Joi.object({
   completed: Joi.boolean()
 }).min(1);
 
-// Logging middleware
+// Logging middleware for all requests
 app.use((req, res, next) => {
+  const startedAt = Date.now();
   const timestamp = new Date().toISOString();
 
-  console.log(`[${timestamp}] ${req.method} ${req.originalUrl}`);
+  console.log(
+    `[${timestamp}] ${req.method} ${req.originalUrl} - Request received`
+  );
+
+  res.on('finish', () => {
+    const duration = Date.now() - startedAt;
+
+    console.log(
+      `[${new Date().toISOString()}] ` +
+      `${req.method} ${req.originalUrl} -> ` +
+      `${res.statusCode} (${duration}ms)`
+    );
+  });
 
   next();
 });
@@ -200,12 +213,33 @@ app.delete('/todos/:id', async (req, res, next) => {
   }
 });
 
-// Error handling middleware
+// Global error handling middleware
 app.use((err, req, res, next) => {
   console.error(err);
 
-  res.status(500).json({
-    error: 'Server error!'
+  if (res.headersSent) {
+    return next(err);
+  }
+
+  const originalStatus = err.statusCode || err.status;
+
+  const statusCode =
+    Number.isInteger(originalStatus) &&
+    originalStatus >= 400 &&
+    originalStatus <= 599
+      ? originalStatus
+      : 500;
+
+  let message = 'Server error!';
+
+  if (err.type === 'entity.parse.failed') {
+    message = 'Invalid JSON request body';
+  } else if (statusCode < 500) {
+    message = err.message || 'Bad request';
+  }
+
+  res.status(statusCode).json({
+    error: message
   });
 });
 
