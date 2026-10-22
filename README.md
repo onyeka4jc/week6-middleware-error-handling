@@ -10,17 +10,17 @@ This project builds on the Week 3 Todo API for the BeTechified Week 6 assignment
 
 ## Features
 
-\- Request logging middleware records request details and response status.
+- Request logging middleware records request details and response status.
 
-\- Joi validates task creation and updates.
+- Joi validates task creation and updates.
 
-\- Task names must contain at least three characters.
+- Task names must contain at least three characters.
 
-\- Asynchronous route handlers use try/catch and forward errors.
+- Asynchronous route handlers use try/catch and forward errors.
 
-\- Centralized error-handling middleware returns appropriate status codes and JSON messages.
+- Centralized error-handling middleware returns appropriate status codes and JSON messages.
 
-\- MongoDB and Mongoose manage Todo records.
+- MongoDB and Mongoose manage Todo records.
 
 
 
@@ -32,17 +32,17 @@ Node.js, Express.js, Joi, MongoDB Atlas, Mongoose, and dotenv.
 
 ## Installation
 
-1\. Install Node.js.
+1. Install Node.js.
 
-2\. Clone this repository.
+2. Clone this repository.
 
-3\. Install dependencies by running `npm install`.
+3. Install dependencies by running `npm install`.
 
-4\. Create a local `.env` file containing your MongoDB connection string:
+4. Create a local `.env` file containing your MongoDB connection string:
 
 
 
-`MONGO\_URI=your\_mongodb\_connection\_string`
+`MONGODB_URI=your_mongodb_connection_string`
 
 
 
@@ -90,19 +90,19 @@ Normal startup: `npm start`
 
 
 
-1\. Successful `GET /todos` request â€” expected `200 OK`.
+1. Successful `GET /todos` request â€” expected `200 OK`.
 
-2\. Successful `POST /todos` with `{"task":"Learn Express"}` â€” expected `201 Created`.
+2. Successful `POST /todos` with `{"task":"Learn Express"}` â€” expected `201 Created`.
 
-3\. Invalid task: `POST /todos` with `{"task":"Hi"}` â€” expected `400 Bad Request`.
+3. Invalid task: `POST /todos` with `{"task":"Hi"}` â€” expected `400 Bad Request`.
 
-4\. Missing task: `POST /todos` with `{}` â€” expected `400 Bad Request`.
+4. Missing task: `POST /todos` with `{}` â€” expected `400 Bad Request`.
 
-5\. Invalid update: `PATCH /todos/EXISTING\_ID` with `{"task":"No"}` â€” expected `400 Bad Request`.
+5. Invalid update: `PATCH /todos/EXISTING_ID` with `{"task":"No"}` â€” expected `400 Bad Request`.
 
 
 
-For Test 5, replace `EXISTING\_ID` with an actual Todo ID. Send JSON bodies with the `Content-Type: application/json` header.
+For Test 5, replace `EXISTING_ID` with an actual Todo ID. Send JSON bodies with the `Content-Type: application/json` header.
 
 
 
@@ -122,11 +122,11 @@ Start command: `npm start`
 
 
 
-Configure `MONGO\_URI` in the Render service's environment settings. Ensure the deployed service can connect to MongoDB Atlas.
+Configure `MONGODB_URI` in the Render service's environment settings. Ensure the deployed service can connect to MongoDB Atlas.
 
 
 
-\*\*Live Render URL:\*\* To be added after deployment.
+**Live Render URL:** https://week6-middleware-error-handling.onrender.com
 
 
 
